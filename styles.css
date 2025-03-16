@@ -1,0 +1,1023 @@
+/* Modern Academic Poster Styles */
+
+/* Base Styles and Variables */
+:root {
+    --primary-color: #1e4d8d;
+    --primary-light: #3a6eb2;
+    --primary-dark: #0e2e5c;
+    --primary-lighter: #c0d6f0;
+    --accent-color: #0284c7;
+    --accent-secondary: #0369a1;
+    --accent-tertiary: #075985;
+    --deep-blue: #0c1425;
+    --bright-blue: #2563eb;
+    --azure-blue: #1e40af;
+    --sky-blue: #38bdf8;
+    --royal-blue: #1e3a8a;
+    --navy-blue: #0f2451;
+    --midnight-blue: #0a1021;
+    --text-color: #334155;
+    --light-text: #f8fafc;
+    --background-color: #f1f5f9;
+    --panel-bg: #ffffff;
+    --panel-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    --border-radius: 12px;
+    --gradient: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    --accent-gradient: linear-gradient(135deg, var(--accent-color), var(--accent-secondary));
+    --multi-blue-gradient: linear-gradient(135deg, var(--deep-blue), var(--primary-color), var(--bright-blue));
+    --deep-multi-blue-gradient: linear-gradient(135deg, var(--navy-blue), var(--royal-blue), var(--azure-blue));
+    --shimmer-gradient: linear-gradient(to right, var(--primary-lighter) 0%, var(--accent-color) 20%, var(--primary-lighter) 40%, var(--primary-lighter) 100%);
+    --glow-blue: 0 0 15px rgba(14, 101, 232, 0.6);
+    --shiny-blue-gradient: linear-gradient(120deg, #3b82f6 0%, #1e40af 25%, #0c4a6e 50%, #1e40af 75%, #3b82f6 100%);
+}
+
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    color: var(--text-color);
+    background-color: var(--background-color);
+    line-height: 1.6;
+}
+
+/* Poster Container */
+.poster {
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 30px;
+    background: 
+        linear-gradient(135deg, #0f2451 0%, #1e3a8a 25%, #0c4a6e 50%, #0f172a 75%, #082f49 100%);
+    border-radius: var(--border-radius);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+    position: relative;
+}
+
+.poster::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 75% 25%, rgba(56, 189, 248, 0.15) 0%, transparent 35%),
+        radial-gradient(circle at 25% 65%, rgba(30, 64, 175, 0.15) 0%, transparent 40%),
+        linear-gradient(45deg, transparent, rgba(59, 130, 246, 0.15), transparent);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.poster::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at top right, rgba(59, 130, 246, 0.3), transparent 70%),
+        radial-gradient(circle at bottom left, rgba(14, 165, 233, 0.25), transparent 70%),
+        radial-gradient(circle at center, rgba(30, 58, 138, 0.3), transparent 70%);
+    z-index: 0;
+}
+
+/* Glass effect overlay for the poster */
+.poster::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 50%, rgba(0, 0, 0, 0.05) 100%);
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* Header Section */
+header {
+    margin-bottom: 30px;
+    padding: 25px;
+    background: linear-gradient(135deg, #ffffff, #f8fafc);
+    border-radius: var(--border-radius);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.1);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at top right, rgba(30, 64, 175, 0.15), transparent 70%),
+        radial-gradient(circle at bottom left, rgba(7, 89, 133, 0.15), transparent 70%);
+    z-index: 0;
+}
+
+.title-container {
+    position: relative;
+    z-index: 1;
+}
+
+.poster-title {
+    font-size: 2.8rem;
+    margin-bottom: 20px;
+    background: var(--shiny-blue-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    position: relative;
+    display: inline-block;
+    font-weight: bold;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    animation: shine 5s infinite linear;
+    background-size: 200% auto;
+}
+
+@keyframes shine {
+    to {
+        background-position: 200% center;
+    }
+}
+
+.poster-title::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 4px;
+    background: var(--shiny-blue-gradient);
+    border-radius: 2px;
+    box-shadow: var(--glow-blue);
+    animation: shine 5s infinite linear;
+    background-size: 200% auto;
+}
+
+.authors {
+    margin-top: 20px;
+    font-size: 1.1rem;
+}
+
+.affiliations {
+    font-size: 0.95rem;
+    color: #64748b;
+    margin-top: 5px;
+}
+
+/* Grid Layout - 2x2 */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, minmax(250px, auto));
+    grid-gap: 25px;
+    margin-bottom: 30px;
+}
+
+/* Ensure panels have equal height and proper content alignment */
+.panel {
+    background: linear-gradient(135deg, #ffffff, #f8fafc);
+    padding: 25px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding-bottom: 15px;
+}
+
+.panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at top right, rgba(30, 64, 175, 0.08), transparent 60%),
+        radial-gradient(circle at bottom left, rgba(7, 89, 133, 0.08), transparent 60%);
+    z-index: 0;
+}
+
+.panel::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--shiny-blue-gradient);
+    background-size: 200% auto;
+    animation: shine 5s infinite linear;
+    box-shadow: var(--glow-blue);
+}
+
+.panel:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.15);
+}
+
+.panel h2 {
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e2e8f0;
+    position: relative;
+    z-index: 1;
+    background: var(--shiny-blue-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    background-size: 200% auto;
+    animation: shine 5s infinite linear;
+}
+
+.panel h2 i {
+    margin-right: 8px;
+    color: var(--accent-tertiary);
+    text-shadow: var(--glow-blue);
+}
+
+/* Panel content to take up remaining space */
+.panel > ul {
+    flex: 1;
+    margin: 0;
+    padding-left: 18px;
+    position: relative;
+    z-index: 1;
+}
+
+.panel > ul li {
+    margin-bottom: 8px;
+    position: relative;
+}
+
+.panel > ul li::before {
+    content: "";
+    position: absolute;
+    left: -16px;
+    top: 9px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--shiny-blue-gradient);
+    background-size: 200% auto;
+    animation: shine 5s infinite linear;
+    box-shadow: var(--glow-blue);
+}
+
+/* Nested lists */
+.panel > ul ul {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    padding-left: 18px;
+}
+
+/* Restore panel-content class for backward compatibility */
+.panel-content {
+    flex: 1;
+    position: relative;
+    z-index: 1;
+    font-size: 1rem;
+}
+
+/* Methodology Steps */
+.methodology-steps {
+    margin: 16px 0;
+}
+
+.step {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 1;
+}
+
+.step-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    background: var(--shiny-blue-gradient);
+    color: white;
+    border-radius: 50%;
+    margin-right: 12px;
+    font-weight: bold;
+    flex-shrink: 0;
+    box-shadow: var(--glow-blue);
+    background-size: 200% auto;
+    animation: shine 5s infinite linear;
+}
+
+/* Key Findings */
+.key-findings {
+    margin: 16px 0;
+}
+
+.finding {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 1;
+}
+
+.finding i {
+    font-size: 1.1rem;
+    margin-right: 12px;
+    margin-top: 3px;
+    background: var(--shiny-blue-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    background-size: 200% auto;
+    animation: shine 5s infinite linear;
+    text-shadow: var(--glow-blue);
+}
+
+/* Future Work */
+.future-work {
+    margin-top: 16px;
+    padding: 16px;
+    background: linear-gradient(to right, rgba(7, 89, 133, 0.06), rgba(30, 64, 175, 0.06));
+    border-radius: 8px;
+    border-left: 3px solid;
+    border-image: var(--shiny-blue-gradient) 1;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 3px 10px rgba(7, 89, 133, 0.15);
+}
+
+.future-work h3 {
+    margin-bottom: 8px;
+    font-size: 1.2rem;
+    background: var(--shiny-blue-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    background-size: 200% auto;
+    animation: shine 5s infinite linear;
+}
+
+/* Figure Styling */
+.figure-container {
+    margin: 15px 0 5px;
+    text-align: center;
+    transition: transform 0.3s ease;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+}
+
+.figure-container:hover {
+    transform: scale(1.02);
+}
+
+.figure {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background: white;
+    border: 2px solid;
+    border-image: var(--shiny-blue-gradient) 1;
+    transition: box-shadow 0.3s ease;
+    position: relative;
+    display: inline-block;
+    padding: 6px;
+}
+
+.figure:hover {
+    box-shadow: 0 8px 20px rgba(30, 64, 175, 0.3);
+}
+
+.figure::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent, rgba(30, 64, 175, 0.15), transparent);
+    z-index: 1;
+    border-radius: inherit;
+    pointer-events: none;
+}
+
+.caption {
+    margin-top: 8px;
+    font-style: italic;
+    color: #64748b;
+    font-size: 0.85rem;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* SVG specific styling */
+.figure svg {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Footer Styling */
+footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 25px;
+    background: linear-gradient(135deg, #ffffff, #f8fafc);
+    border-radius: var(--border-radius);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    flex-wrap: nowrap;
+    gap: 20px;
+}
+
+footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at center right, rgba(30, 64, 175, 0.09), transparent 70%),
+        radial-gradient(circle at center left, rgba(7, 89, 133, 0.09), transparent 70%);
+    z-index: 0;
+}
+
+/* Footer content */
+footer p {
+    color: var(--text-color);
+    font-size: 1rem;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+    white-space: nowrap;
+}
+
+/* Footer logos section */
+.footer-logos {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    position: relative;
+    z-index: 1;
+    margin: 0 auto;
+}
+
+.logo-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 35px;
+    transition: transform 0.3s ease;
+}
+
+.logo-wrapper:hover {
+    transform: translateY(-3px);
+    box-shadow: none;
+}
+
+/* Logo specific sizing */
+.lkb-logo-wrapper {
+    width: 400px;
+    background: transparent;
+    box-shadow: none;
+    border: none;
+    padding: 0;
+}
+
+.mcgill-logo-wrapper {
+    width: 120px;
+    background: transparent;
+    box-shadow: none;
+    border: none;
+    padding: 0;
+}
+
+.footer-logo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Links in footer */
+footer a {
+    color: var(--accent-tertiary);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: var(--accent-color);
+    text-decoration: underline;
+}
+
+/* LaTeX Styling */
+.mjx-chtml {
+    display: inline-block;
+    line-height: 0;
+    text-indent: 0;
+    text-align: left;
+    text-transform: none;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 100%;
+    font-size-adjust: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    word-spacing: normal;
+    white-space: nowrap;
+    direction: ltr;
+    padding: 1px 0;
+}
+
+/* Ensure math expressions stand out slightly */
+.mjx-math {
+    padding: 1px 0.15em;
+    display: inline-block;
+}
+
+/* Fix for LaTeX in PDF generation */
+@media print {
+    .mjx-chtml {
+        position: static !important;
+    }
+    
+    .mjx-math {
+        display: inline-block !important;
+    }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 900px) {
+    .grid-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+    }
+    
+    .poster-title {
+        font-size: 2.2rem;
+    }
+    
+    .authors {
+        font-size: 1rem;
+    }
+    
+    .panel {
+        padding: 16px;
+    }
+
+    footer {
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px;
+        text-align: center;
+    }
+    
+    footer p {
+        margin-bottom: 10px;
+    }
+    
+    .footer-logos {
+        margin: 10px auto;
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .lkb-logo-wrapper {
+        width: 120px;
+    }
+    
+    .mcgill-logo-wrapper {
+        width: 48px;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .poster {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        box-shadow: none;
+        background: #ffffff !important;
+    }
+    
+    body {
+        background: none;
+    }
+    
+    .panel:hover,
+    .figure-container:hover,
+    .figure:hover {
+        transform: none;
+        box-shadow: var(--panel-shadow);
+    }
+    
+    .download-container {
+        display: none;
+    }
+    
+    @page {
+        size: A0 landscape;
+        margin: 0;
+    }
+    
+    .figure {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+    
+    .figure svg {
+        max-height: 300px; /* Limit height for print */
+    }
+    
+    /* Disable all animations for print */
+    * {
+        animation: none !important;
+        transition: none !important;
+        transform: none !important;
+    }
+    
+    /* Hide decorative elements that slow down rendering */
+    .decorative-dot, 
+    .shiny-orb {
+        display: none !important;
+    }
+    
+    /* Simplify backgrounds for better performance */
+    header, 
+    .panel, 
+    footer, 
+    .poster {
+        background: white !important;
+        background-image: none !important;
+    }
+    
+    header::before, 
+    header::after,
+    .panel::before,
+    .panel::after,
+    .poster::before,
+    .poster::after,
+    footer::before,
+    footer::after {
+        display: none !important;
+    }
+    
+    /* Ensure text is visible */
+    .poster-title,
+    .panel h2,
+    h3 {
+        color: var(--primary-color) !important;
+        background: none !important;
+        -webkit-background-clip: initial !important;
+        background-clip: initial !important;
+    }
+    
+    /* Flatten shadows */
+    * {
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+    
+    /* Ensure proper page breaks */
+    main {
+        page-break-inside: avoid;
+    }
+    
+    /* Make sure links are visible */
+    a {
+        color: var(--accent-tertiary) !important;
+        text-decoration: underline !important;
+    }
+}
+
+/* Optimize for PDF generation specifically */
+.print-optimize {
+    background: white !important;
+}
+
+.print-optimize::before,
+.print-optimize::after {
+    display: none !important;
+}
+
+.print-optimize * {
+    animation-play-state: paused !important;
+    transition: none !important;
+}
+
+.print-optimize header,
+.print-optimize .panel,
+.print-optimize footer {
+    background: white !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1) !important;
+}
+
+.print-optimize header::before,
+.print-optimize header::after,
+.print-optimize .panel::before,
+.print-optimize .panel::after,
+.print-optimize footer::before,
+.print-optimize footer::after {
+    display: none !important;
+}
+
+.print-optimize .poster-title,
+.print-optimize .panel h2,
+.print-optimize h3 {
+    color: var(--primary-color) !important;
+    background: none !important;
+    -webkit-background-clip: initial !important;
+    background-clip: initial !important;
+}
+
+/* Decorative Elements */
+.decorative-dot {
+    position: absolute;
+    background: var(--shiny-blue-gradient);
+    border-radius: 50%;
+    opacity: 0.3;
+    z-index: 0;
+    box-shadow: var(--glow-blue);
+    animation: pulse 4s infinite alternate ease-in-out;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 0.2; }
+    100% { transform: scale(1.1); opacity: 0.4; }
+}
+
+.dot-1 {
+    width: 120px;
+    height: 120px;
+    top: -60px;
+    right: -60px;
+}
+
+.dot-2 {
+    width: 100px;
+    height: 100px;
+    bottom: -50px;
+    left: 10%;
+}
+
+/* Additional decorative elements */
+.shiny-orb {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--shiny-blue-gradient);
+    filter: blur(20px);
+    opacity: 0.35;
+    z-index: 0;
+    animation: float 8s infinite alternate ease-in-out;
+}
+
+@keyframes float {
+    0% { transform: translateY(0) translateX(0); }
+    50% { transform: translateY(-15px) translateX(10px); }
+    100% { transform: translateY(5px) translateX(-10px); }
+}
+
+/* Download Button */
+.download-container {
+    text-align: center;
+    margin: 0 auto 20px;
+    position: relative;
+    z-index: 10;
+    max-width: 200px;
+}
+
+.download-btn {
+    display: inline-block;
+    width: 100%;
+    padding: 12px 24px;
+    background: linear-gradient(to right, var(--accent-color), var(--accent-tertiary));
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: bold;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.download-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.15);
+    background: linear-gradient(to right, var(--accent-secondary), var(--accent-tertiary));
+}
+
+.download-btn i {
+    margin-right: 8px;
+}
+
+.download-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* PDF Loading Overlay */
+.pdf-loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(10, 16, 33, 0.9);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+.pdf-loading-content {
+    background: linear-gradient(135deg, var(--navy-blue), var(--deep-blue));
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    width: 80%;
+    max-width: 450px;
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--light-text);
+    animation: pulse-subtle 2s infinite alternate ease-in-out;
+}
+
+@keyframes pulse-subtle {
+    0% { transform: scale(1); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); }
+    100% { transform: scale(1.02); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4); }
+}
+
+.pdf-loading-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 75% 25%, rgba(56, 189, 248, 0.15) 0%, transparent 35%),
+        radial-gradient(circle at 25% 65%, rgba(30, 64, 175, 0.15) 0%, transparent 40%);
+    border-radius: inherit;
+    z-index: -1;
+}
+
+.pdf-loading-spinner {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: var(--sky-blue);
+    text-shadow: 0 0 15px rgba(56, 189, 248, 0.7);
+    animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.pdf-loading-content h3 {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    color: white;
+    font-weight: bold;
+}
+
+.pdf-progress-container {
+    width: 100%;
+    height: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    margin: 20px 0;
+    overflow: hidden;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2) inset;
+}
+
+.pdf-progress-bar {
+    height: 100%;
+    width: 0;
+    background: linear-gradient(to right, var(--sky-blue), var(--bright-blue));
+    border-radius: 5px;
+    transition: width 0.5s ease;
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+.pdf-progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        to right,
+        transparent 0%,
+        rgba(255, 255, 255, 0.4) 50%,
+        transparent 100%
+    );
+    animation: shimmer 1.5s infinite;
+    transform: skewX(-20deg);
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%) skewX(-20deg); }
+    100% { transform: translateX(100%) skewX(-20deg); }
+}
+
+#pdf-status-text {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-top: 15px;
+    font-weight: 500;
+    min-height: 24px;
+}
+
+/* Dataset Information */
+.dataset-info {
+    margin: 16px 0;
+    padding: 15px;
+    background: linear-gradient(to right, rgba(14, 165, 233, 0.05), rgba(30, 64, 175, 0.08));
+    border-radius: 8px;
+    position: relative;
+    z-index: 1;
+    border-left: 3px solid;
+    border-image: var(--shiny-blue-gradient) 1;
+    box-shadow: 0 3px 10px rgba(7, 89, 133, 0.1);
+}
+
+.dataset-info h3 {
+    font-size: 1.15rem;
+    margin-bottom: 10px;
+    background: var(--shiny-blue-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    background-size: 200% auto;
+    animation: shine 5s infinite linear;
+}
+
+.dataset-info p {
+    margin-bottom: 8px;
+    line-height: 1.7;
+}
+
+.parameter-ranges {
+    list-style: none;
+    margin: 10px 0;
+    padding-left: 15px;
+}
+
+.parameter-ranges li {
+    position: relative;
+    padding: 6px 0;
+    margin-bottom: 4px;
+    font-size: 0.95rem;
+}
+
+.parameter-ranges li::before {
+    content: "";
+    position: absolute;
+    left: -15px;
+    top: 12px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--shiny-blue-gradient);
+    background-size: 200% auto;
+    animation: shine 5s infinite linear;
+    box-shadow: var(--glow-blue);
+} 

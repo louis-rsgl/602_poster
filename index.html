@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Research Poster</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <!-- MathJax for LaTeX rendering -->
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            svg: {
+                fontCache: 'global'
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+                processHtmlClass: 'tex2jax_process'
+            }
+        };
+    </script>
+</head>
+<body>
+    
+    <div class="poster" id="poster-content">
+        <!-- Decorative elements -->
+        <div class="decorative-dot dot-1"></div>
+        <div class="decorative-dot dot-2"></div>
+        <div class="shiny-orb" style="width: 180px; height: 180px; top: 40%; right: -50px;"></div>
+        <div class="shiny-orb" style="width: 150px; height: 150px; bottom: 30%; left: -30px;"></div>
+        <div class="shiny-orb" style="width: 100px; height: 100px; top: 20%; left: 20%;"></div>
+        <div class="shiny-orb" style="width: 120px; height: 120px; bottom: 15%; right: 15%;"></div>
+        <div class="shiny-orb" style="width: 90px; height: 90px; top: 60%; left: 50%;"></div>
+        
+        <div class="download-container">
+            <button class="download-btn" onclick="downloadPoster()"><i class="fas fa-download"></i> Download as Image</button>
+        </div>
+        
+        <!-- Loading overlay for PDF generation -->
+        <div id="pdf-loading-overlay" class="pdf-loading-overlay">
+            <div class="pdf-loading-content">
+                <div class="pdf-loading-spinner">
+                    <i class="fas fa-spinner fa-spin"></i>
+                </div>
+                <h3>Generating PDF</h3>
+                <div class="pdf-progress-container">
+                    <div id="pdf-progress-bar" class="pdf-progress-bar"></div>
+                </div>
+                <p id="pdf-status-text">Preparing content...</p>
+            </div>
+        </div>
+        
+        <header>
+            <div class="title-container">
+                <h1 class="poster-title">Single-Shot Estimation of Intrinsic Variables in the Non-Linear Schrödinger Equation with Machine Learning</h1>
+                <div class="authors">
+                    <p>Louis Rossignol<sup>1,2</sup>, Tangui Aladjidi<sup>1</sup>, Myrann Baker-Rasooli<sup>1</sup>, Quentin Glorieux<sup>1</sup></p>
+                    <p class="affiliations"><sup>1</sup>Laboratoire Kastler Brossel, Sorbonne University, CNRS, ENS-PSL University, Collège de France; 4 place Jussieu, 75005 Paris, France</p>
+                    <p class="affiliations"><sup>2</sup>Department of Physics, McGill University, Montréal, Québec, H3A 2T8, Canada</p>
+                </div>
+            </div>
+        </header>
+
+        <main class="grid-container">
+            <section class="panel" id="panel1">
+                <h2><i class="fas fa-flask"></i> Physical System and Problem</h2>
+                <ul>
+                    <li>The Non-linear Schrödinger Equation (NLSE) describes complex wave phenomena in nonlinear optical media and quantum gases.</li>
+                    <li>We consider a quantum fluid of light, realized experimentally using hot atomic vapors, as a testbed.</li>
+                    <li><strong>Paraxial and slowly varying envelope approximations</strong> simplify the NLSE to model laser beam propagation:
+                        \[ \frac{\partial \mathcal{E}}{\partial z} = \left(- \frac{1}{2k_0}\nabla^2_\perp - k_0 n_2 c \epsilon_0 |\mathcal{E}|^2 - i \alpha\right) \mathcal{E} \]
+                    </li>
+                    <li>Intrinsic parameters crucial for characterizing the medium:
+                        <ul>
+                            <li>Nonlinear coefficient \( n_2 \): Determines the strength of the medium's nonlinear response.</li>
+                            <li>Saturation intensity \( I_{\text{sat}} \): Defines the intensity threshold at which nonlinear response saturates.</li>
+                            <li>Absorption coefficient \( \alpha \): Quantifies linear attenuation of the wave in the medium.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Off-axis interferometry</strong> experimentally provides single-shot density and phase images, capturing the full electric field profile needed for parameter estimation.</li>
+                    <li>Parameters \( n_2, I_{\text{sat}}, \alpha \) are highly correlated and challenging to measure directly, motivating advanced computational methods, such as machine learning.</li>
+                </ul>
+                <div class="figure-container">
+                    <img src="setup.png" alt="Setup with off-axis interferometer" class="figure">
+                    <p class="caption">Experimental setup with off-axis interferometer to retrive the density and the phase profiles.</p>
+                </div>
+            </section>
+
+            <section class="panel" id="panel2">
+                <h2><i class="fas fa-flask"></i> NLSE Simulation Data Generation</h2>
+                <ul>
+                    <li>Data generated with the NLSE Python library using pseudo-spectral schemes and GPU acceleration.</li>
+                    <li>Generated 125,000 realistic density and phase image pairs.</li>
+                    <li>Incorporated realistic experimental noise (Poisson and Gaussian).</li>
+                </ul>
+                
+                <h3>Dataset Parameters:</h3>
+                <p>
+                    We use a $780$ $\text{nm}$ laser with input power $P = 2.1$ $\text{W}$ and waist $w = 1.7 \cdot 10^{-3}$ $\text{m}$ 
+                    through a $20 \cdot 10^{-2}$ $\text{m}$ cell. The intrinsic variables have ranges:
+                </p>
+                <ul class="parameter-ranges">
+                    <li>$n_2 \in \left[-1 \cdot 10 ^{-9}; -1 \cdot 10 ^{-10}\right]$ $\text{m}^2/\text{W}$</li>
+                    <li>$I_{\text{sat}} \in \left[5 \cdot 10^4 ; 1 \cdot 10^6 \right]$ $\text{W}/\text{m}^2$</li>
+                    <li>$\alpha \in \left[1.3 \cdot 10^1 ; 3.0 \cdot 10^1\right]$ $\text{m}^{-1}$</li>
+                </ul>
+                
+                <div class="figure-container">
+                    <img src="density_phase.svg" alt="Density and Phase Images" class="figure">
+                    <p class="caption">Density and Phase profiles that the model will train on by combining them as 2 channels of the same image for each triplet of parameters.</p>
+                </div>
+            </section>
+
+            <section class="panel" id="panel3">
+                <h2><i class="fas fa-robot"></i> Machine Learning Model</h2>
+                <ul>
+                    <li>ConvNeXt CNN architecture with conditional regression network.</li>
+                    <li>Loss function: Multivariate Gaussian Negative Log-Likelihood:
+                    \[ L = \frac{1}{2}(\mathbf{x}-\mu)^T\Sigma^{-1}(\mathbf{x}-\mu)+\frac{1}{2}\log|\Sigma|+\frac{d}{2}\log(2\pi) \]</li>
+                    <li>Training using Adam-W optimizer, batch normalization, and dropout regularization.</li>
+                </ul>
+                <div class="figure-container">
+                    <img src="model.svg" alt="Machine Learning Model Architecture" class="figure">
+                    <p class="caption">ConvNeXt architecture with conditional regression network</p>
+                </div>
+            </section>
+
+            <section class="panel" id="panel4">
+                <h2><i class="fas fa-chart-bar"></i> Results</h2>
+                <ul>
+                    <li>Mean absolute error: 3.22% (\(R^2 = 97.7\%\))</li>
+                    <li>Parameter-specific errors:
+                        <ul>
+                            <li>\(n_2\): MAE = 0.0428</li>
+                            <li>\(I_{sat}\): MAE = 0.0287</li>
+                            <li>\(\alpha\): MAE = 0.0251</li>
+                        </ul>
+                    </li>
+                    <li>Robust results, promising for real-world integration.</li>
+                    <li>Future work includes improved noise modeling and experimental validation.</li>
+                </ul>
+                <div class="figure-container">
+                    <img src="regression.svg" alt="Regression Results" class="figure">
+                    <p class="caption">Regression analysis comparing predicted vs. actual parameter values</p>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p><a href="mailto:louis.rossignol@mail.mcgill.ca">louis.rossignol@mail.mcgill.ca</a></p>
+            <div class="footer-logos">
+                <div class="logo-wrapper lkb-logo-wrapper">
+                    <img src="IMG_1633-removebg-preview.png" alt="LKB logo" class="footer-logo lkb-logo">
+                </div>
+                <div class="logo-wrapper mcgill-logo-wrapper">
+                    <img src="image-removebg-preview.png" alt="McGill logo" class="footer-logo mcgill-logo">
+                </div>
+            </div>
+            <p>Code available on <a href="https://github.com/Quantum-Optics-LKB/xp2nlse-ml">GitHub (XP2NLSE)</a></p>
+        </footer>
+    </div>
+
+    <script>
+        function downloadPoster() {
+            // Get the poster content element
+            const element = document.getElementById('poster-content');
+            
+            // Display a message to the user
+            const downloadBtn = document.querySelector('.download-btn');
+            const originalText = downloadBtn.innerHTML;
+            downloadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating Image...';
+            downloadBtn.disabled = true;
+
+            // Show the loading overlay
+            const loadingOverlay = document.getElementById('pdf-loading-overlay');
+            loadingOverlay.style.display = 'flex';
+            const progressBar = document.getElementById('pdf-progress-bar');
+            const statusText = document.getElementById('pdf-status-text');
+            progressBar.style.width = '10%';
+            statusText.textContent = 'Preparing poster for capture...';
+
+            // Prepare the poster for screenshot
+            const prepareForScreenshot = () => {
+                // Hide download button
+                const downloadContainer = document.querySelector('.download-container');
+                const originalDisplayStyle = downloadContainer.style.display;
+                downloadContainer.style.display = 'none';
+                
+                // Hide decorative elements
+                const decorativeElements = document.querySelectorAll('.decorative-dot, .shiny-orb');
+                const decorativeStyles = [];
+                decorativeElements.forEach(el => {
+                    decorativeStyles.push(el.style.display);
+                    el.style.display = 'none';
+                });
+                
+                // Store original dimensions
+                const originalWidth = element.style.width;
+                const originalMaxWidth = element.style.maxWidth;
+                element.style.width = '1200px';
+                element.style.maxWidth = 'none';
+                
+                // Add a class to disable animations
+                element.classList.add('print-optimize');
+                
+                return () => {
+                    // Restore download button
+                    downloadContainer.style.display = originalDisplayStyle;
+                    
+                    // Restore decorative elements
+                    decorativeElements.forEach((el, i) => {
+                        el.style.display = decorativeStyles[i];
+                    });
+                    
+                    // Restore dimensions
+                    element.style.width = originalWidth;
+                    element.style.maxWidth = originalMaxWidth;
+                    
+                    // Remove optimization class
+                    element.classList.remove('print-optimize');
+                };
+            };
+            
+            // Force MathJax to render first
+            if (typeof MathJax !== 'undefined') {
+                progressBar.style.width = '20%';
+                statusText.textContent = 'Processing math equations...';
+                MathJax.typeset().then(() => {
+                    captureAndDownload();
+                });
+            } else {
+                captureAndDownload();
+            }
+            
+            function captureAndDownload() {
+                // Get restore function
+                const restore = prepareForScreenshot();
+                
+                progressBar.style.width = '30%';
+                statusText.textContent = 'Capturing poster as image...';
+                
+                try {
+                    // Use html2canvas to create screenshot
+                    html2canvas(element, {
+                        scale: 1,
+                        useCORS: true,
+                        allowTaint: true,
+                        backgroundColor: "#f1f5f9",
+                        logging: false,
+                        onclone: function(clonedDoc) {
+                            // Hide the loading overlay in the clone
+                            const clonedOverlay = clonedDoc.getElementById('pdf-loading-overlay');
+                            if (clonedOverlay) clonedOverlay.style.display = 'none';
+                            
+                            // Process any additional cleanup in the clone
+                            const clonedPoster = clonedDoc.getElementById('poster-content');
+                            // Simplify styling for better rendering
+                            clonedPoster.querySelectorAll('header, .panel, footer').forEach(el => {
+                                el.style.background = '#ffffff';
+                                el.style.boxShadow = 'none';
+                            });
+                        }
+                    }).then(canvas => {
+                        progressBar.style.width = '70%';
+                        statusText.textContent = 'Processing image...';
+                        
+                        // Convert canvas to jpeg image with good quality
+                        const imgData = canvas.toDataURL('image/jpeg', 0.95);
+                        
+                        // Create download link
+                        progressBar.style.width = '90%';
+                        statusText.textContent = 'Preparing download...';
+                        
+                        const downloadLink = document.createElement('a');
+                        downloadLink.href = imgData;
+                        downloadLink.download = 'academic_research_poster.jpg';
+                        
+                        // Trigger download
+                        document.body.appendChild(downloadLink);
+                        downloadLink.click();
+                        document.body.removeChild(downloadLink);
+                        
+                        // Clean up and restore
+                        restore();
+                        progressBar.style.width = '100%';
+                        statusText.textContent = 'Image downloaded successfully!';
+                        
+                        setTimeout(() => {
+                            loadingOverlay.style.display = 'none';
+                            downloadBtn.innerHTML = originalText;
+                            downloadBtn.disabled = false;
+                        }, 1500);
+                    }).catch(err => {
+                        console.error('Error capturing poster:', err);
+                        failureHandler(restore);
+                    });
+                } catch (err) {
+                    console.error('Critical error in capture process:', err);
+                    failureHandler(restore);
+                }
+            }
+            
+            function failureHandler(restore) {
+                // Try a simpler approach: just use save dialog
+                try {
+                    restore();
+                    
+                    progressBar.style.width = '30%';
+                    statusText.textContent = 'Trying alternate method...';
+                    
+                    // Create a basic message for the user
+                    const message = document.createElement('div');
+                    message.style.position = 'fixed';
+                    message.style.left = '50%';
+                    message.style.top = '50%';
+                    message.style.transform = 'translate(-50%, -50%)';
+                    message.style.background = 'white';
+                    message.style.padding = '20px';
+                    message.style.borderRadius = '10px';
+                    message.style.boxShadow = '0 0 20px rgba(0,0,0,0.3)';
+                    message.style.zIndex = '10000';
+                    message.style.maxWidth = '80%';
+                    message.style.textAlign = 'center';
+                    
+                    message.innerHTML = `
+                        <h3 style="margin-top:0;">Alternative Download Method</h3>
+                        <p>We couldn't automatically generate your poster. Please try:</p>
+                        <ol style="text-align:left;">
+                            <li>Right-click anywhere on the poster</li>
+                            <li>Select "Save As" or "Save Image As"</li>
+                            <li>Choose a location and save</li>
+                        </ol>
+                        <p>Or use your device's screenshot feature (typically Cmd+Shift+4 on Mac, PrtScn on Windows)</p>
+                        <button id="close-message-btn" style="padding:8px 16px;background:#0284c7;color:white;border:none;border-radius:4px;cursor:pointer;">Close</button>
+                    `;
+                    
+                    document.body.appendChild(message);
+                    
+                    document.getElementById('close-message-btn').addEventListener('click', function() {
+                        document.body.removeChild(message);
+                    });
+                    
+                    // Update UI
+                    progressBar.style.width = '100%';
+                    statusText.textContent = 'Please use alternate method';
+                    
+                    setTimeout(() => {
+                        loadingOverlay.style.display = 'none';
+                        downloadBtn.innerHTML = originalText;
+                        downloadBtn.disabled = false;
+                    }, 1500);
+                } catch (finalError) {
+                    console.error('Final error handler failed:', finalError);
+                    restore();
+                    loadingOverlay.style.display = 'none';
+                    downloadBtn.innerHTML = originalText;
+                    downloadBtn.disabled = false;
+                    alert('Unable to generate poster. Please try taking a screenshot instead.');
+                }
+            }
+        }
+
+        // Wait for MathJax to finish rendering before enabling download button
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof MathJax !== 'undefined') {
+                // For MathJax 3.x
+                MathJax.startup.promise.then(() => {
+                    console.log('MathJax initialization complete');
+                });
+            }
+        });
+    </script>
+</body>
+</html> 
